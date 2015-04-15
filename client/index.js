@@ -33,10 +33,8 @@ $(document).ready(init);
 
 function init(){
   $('#start').click(initBoard);
-  // $('#table').on('click', '.hidden', selectCard);
   $('#table').on('click', '.hidden', checkCard);
   fruitArr = randomizeArr(fruitArr);
-
 }
 
 function initBoard(){
@@ -48,11 +46,7 @@ function initBoard(){
     $div.addClass('square');
     $div.addClass('hidden');
     $('#table').append($div);
-
-    // console.log($div);
-
   });
-
 }
 
 
@@ -60,14 +54,11 @@ function initBoard(){
 function randomizeArr(array) {
   var currentIndex = array.length, temporaryValue, randomIndex ;
 
-  // While there remain elements to shuffle...
   while (0 !== currentIndex) {
 
-    // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
 
-    // And swap it with the current element.
     temporaryValue = array[currentIndex];
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
@@ -91,7 +82,6 @@ function countDown(){
 }
 
 function checkCard(){
-
   if (selectedFruits.length >= 2){
 
     return;
@@ -120,27 +110,13 @@ function checkCard(){
         $('.hidden').removeClass('shown');
         selectedFruits = [];
       }, 1000);
-
     }
-
   }
-
-}
-
-function flipCard(){
-  // toggle class .found for card1 and card2
-
-}
-
-function peekCard(){
-  // show card for moment, then return to .hidden
-  // set timeout
 }
 
 function checkWin(){
   if ($('.hidden').length === 0){
-    alert('win');
+    alert('YOU WIN!!');
     clearInterval(timerFunction);
   }
-
 }

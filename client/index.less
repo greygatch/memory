@@ -1,32 +1,22 @@
+@import url(http://fonts.googleapis.com/css?family=Shadows+Into+Light);
+
 body{
   text-align: center;
-}
-
-#table{
-
-}
-
-
-
-.found{
-
-}
-
-#start{
-
+  background-image: url("/assets/background.png");
+  width: 100%;
+  height: 800px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: 'Shadows Into Light', cursive;
+  color: white;
 }
 
 #timer{
-
-}
-
-.hidden{
-  background-image: none;
-  border: 1px solid black;
+  color: white;
 }
 
 .square{
-  border: 1px solid black;
+  border: 1px dashed lightgray;
   height: 100px;
   width: 100px;
   display: inline-block;
@@ -34,13 +24,11 @@ body{
 }
 
 #table{
-  background-color: pink;
   height: 450px;
   width: 550px;
   margin: auto auto;
 }
 
-/***************************
 
 .apple{
   background-image: url('/assets/Apple.png');
@@ -94,5 +82,13 @@ body{
   background-size: contain;
   background-repeat: no-repeat;
 }
-
-**************************/
+.hidden{
+  background-image: none;
+  border: 1px dashed lightgray;
+  transition: transform .5s;
+  transform: rotateY(-180deg);
+}
+.shown {
+  transform: rotatey(180deg);
+  transition: transform 1s;
+}
