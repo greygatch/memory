@@ -1,15 +1,7 @@
 'use strict';
-
-// var selected;
-// var
-
-$(document).ready(init);
-
-function init(){
-  $('#start').click(countDown);
-  $('#table').on('click', '.hidden', checkCard)
-  randomizeArr();
-}
+var timerFunction;
+var $selected;
+var $target;
 
 var fruits = {
   1: 'apple',
@@ -20,7 +12,7 @@ var fruits = {
   6: 'pear',
   7: 'watermelon',
   8: 'lemon',
-  9: 'grapes',
+  9: 'grape',
   10: 'orange',
   11: 'apple',
   12: 'banana',
@@ -30,16 +22,33 @@ var fruits = {
   16: 'pear',
   17: 'watermelon',
   18: 'lemon',
-  19: 'grapes',
+  19: 'grape',
   20: 'orange'
 }
 
 var fruitArr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 
+$(document).ready(init);
+
+function init(){
+  $('#start').click(initBoard);
+  $('#table').on('click', '.hidden', selectCard);
+  fruitArr = randomizeArr(fruitArr);
+
+}
+
 function initBoard(){
-  fruitArr.forEach(function(n){
-    // create divs
-    // div .attr('id', n)
+  countDown();
+  fruitArr.forEach(function(n){[]
+    var $div = $('<div>');
+    $div.addClass(fruits[n]);
+    $div.addClass('square');
+    $div.addClass('hidden');
+    // $div.attr('id', n)nsole.log($div);
+    $('#table').append($div);
+
+    // console.log($div);
+
   });
 
 }
@@ -66,20 +75,41 @@ function randomizeArr(array) {
 }
 
 function countDown(){
-  var time = $('#timer').text();
-  setInterval(function(time){
-     time--;
+  var time = parseInt($('#timer').text());
+
+  timerFunction = setInterval(function(){
+
+     time = (time - 1) * 1;
+    //  console.log(time);
+    //  console.log(typeof(time));
+     $('#timer').text(time);
+     if (time <= 0){
+       alert('YOU LOSE!!!!!!!')
+       clearInterval(timerFunction);
+     }
    }, 1000);
-  // set interval
-  // decrement the count every second
-  if (time <= 0){
-    alert('lose');
-  }
+
+
+
+}
+
+function selectCard(){
+
+  $selected = $(this);
+  console.log($selected);
+  $selected.removeClass('hidden');
+  $selected.addClass('shown');
+  
 }
 
 function checkCard(){
-  // if card !selected
-    // return
+
+  if (!$selected){
+    return;
+  }
+
+  console.log('enter selectCard');
+
   // select card 1
     // if card 1 === card 2
       // flipCard()
