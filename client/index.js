@@ -1,7 +1,6 @@
 'use strict';
 var timerFunction;
 var $selected;
-var $target;
 var selectedFruits = [];
 
 var fruits = {
@@ -25,7 +24,7 @@ var fruits = {
   18: 'lemon',
   19: 'grape',
   20: 'orange'
-}
+};
 
 var fruitArr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 
@@ -38,9 +37,13 @@ function init(){
 }
 
 function initBoard(){
+  if (timerFunction){
+    clearInterval(timerFunction);
+  }
+  $('#timer').text('60');
   countDown();
   $('#table').children().remove();
-  fruitArr.forEach(function(n){[]
+  fruitArr.forEach(function(n){
     var $div = $('<div>');
     $div.addClass(fruits[n]);
     $div.addClass('square');
@@ -75,7 +78,7 @@ function countDown(){
      time = (time - 1) * 1;
      $('#timer').text(time);
      if (time <= 0){
-       alert('YOU LOSE!!!!!!!')
+       alert('YOU LOSE!!!!!!!');
        clearInterval(timerFunction);
      }
    }, 1000);
@@ -83,12 +86,11 @@ function countDown(){
 
 function checkCard(){
   if (selectedFruits.length >= 2){
-
     return;
   }
+
   $(this).removeClass('hidden');
   $(this).addClass('shown');
-
 
   $selected = $(this).attr('class').split(' ')[0];
   selectedFruits.push($selected);
@@ -118,5 +120,8 @@ function checkWin(){
   if ($('.hidden').length === 0){
     alert('YOU WIN!!');
     clearInterval(timerFunction);
+    setTimeout(function(){
+      location.reload();
+    }, 4000);
   }
 }
