@@ -41,12 +41,12 @@ function init(){
 
 function initBoard(){
   countDown();
+  $('#table').children().remove();
   fruitArr.forEach(function(n){[]
     var $div = $('<div>');
     $div.addClass(fruits[n]);
     $div.addClass('square');
     $div.addClass('hidden');
-    // $div.attr('id', n)nsole.log($div);
     $('#table').append($div);
 
     // console.log($div);
@@ -82,8 +82,6 @@ function countDown(){
   timerFunction = setInterval(function(){
 
      time = (time - 1) * 1;
-    //  console.log(time);
-    //  console.log(typeof(time));
      $('#timer').text(time);
      if (time <= 0){
        alert('YOU LOSE!!!!!!!')
@@ -105,20 +103,24 @@ function checkCard(){
   $selected = $(this).attr('class').split(' ')[0];
   selectedFruits.push($selected);
 
-  var $target = $(this).attr('class').split(' ')[0];
   console.log(selectedFruits);
   if (selectedFruits.length === 2){
     if (selectedFruits[0] === selectedFruits[1]){
       console.log("hooray!");
       $('.shown').addClass('found');
+      $('.found').removeClass('hidden');
+      $('.found').removeClass('shown');
       $selected = null;
       selectedFruits = [];
+      checkWin();
     }
     else{
-      // timer 1000 ms
-      $('.shown').addClass('hidden');
-      $('.shown').removeClass('shown');
-      selectedFruits = [];
+      setTimeout(function(){
+        $('.shown').addClass('hidden');
+        $('.hidden').removeClass('shown');
+        selectedFruits = [];
+      }, 1000);
+
     }
 
   }
@@ -127,7 +129,7 @@ function checkCard(){
 
 function flipCard(){
   // toggle class .found for card1 and card2
-  checkWin();
+
 }
 
 function peekCard(){
@@ -137,6 +139,8 @@ function peekCard(){
 
 function checkWin(){
   if ($('.hidden').length === 0){
-    alert('win')
+    alert('win');
+    clearInterval(timerFunction);
   }
+
 }
