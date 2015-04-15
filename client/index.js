@@ -2,6 +2,7 @@
 var timerFunction;
 var $selected;
 var $target;
+var selectedFruits = [];
 
 var fruits = {
   1: 'apple',
@@ -32,7 +33,8 @@ $(document).ready(init);
 
 function init(){
   $('#start').click(initBoard);
-  $('#table').on('click', '.hidden', selectCard);
+  // $('#table').on('click', '.hidden', selectCard);
+  $('#table').on('click', '.hidden', checkCard);
   fruitArr = randomizeArr(fruitArr);
 
 }
@@ -88,38 +90,44 @@ function countDown(){
        clearInterval(timerFunction);
      }
    }, 1000);
-
-
-
-}
-
-function selectCard(){
-
-  $selected = $(this);
-  console.log($selected);
-  $selected.removeClass('hidden');
-  $selected.addClass('shown');
-  
 }
 
 function checkCard(){
 
-  if (!$selected){
+  if (selectedFruits.length >= 2){
+
     return;
   }
+  $(this).removeClass('hidden');
+  $(this).addClass('shown');
 
-  console.log('enter selectCard');
 
-  // select card 1
-    // if card 1 === card 2
-      // flipCard()
-    // else
-      // peekCard()
+  $selected = $(this).attr('class').split(' ')[0];
+  selectedFruits.push($selected);
+
+  var $target = $(this).attr('class').split(' ')[0];
+  console.log(selectedFruits);
+  if (selectedFruits.length === 2){
+    if (selectedFruits[0] === selectedFruits[1]){
+      console.log("hooray!");
+      $('.shown').addClass('found');
+      $selected = null;
+      selectedFruits = [];
+    }
+    else{
+      // timer 1000 ms
+      $('.shown').addClass('hidden');
+      $('.shown').removeClass('shown');
+      selectedFruits = [];
+    }
+
+  }
+
 }
 
 function flipCard(){
   // toggle class .found for card1 and card2
-  checkWin()
+  checkWin();
 }
 
 function peekCard(){
