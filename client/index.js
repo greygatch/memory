@@ -80,6 +80,7 @@ function countDown(){
      if (time <= 0){
        alert('YOU LOSE!!!!!!!');
        clearInterval(timerFunction);
+       $('#table').children().removeClass('hidden');
      }
    }, 1000);
 }
